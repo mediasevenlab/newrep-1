@@ -1,0 +1,25 @@
+name: Auto Update Repository
+
+on:
+  push:
+    branches:
+      - main  # Запуск при изменениях в main
+  workflow_dispatch:  # Возможность ручного запуска через GitHub
+
+jobs:
+  update_repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout репозиторий
+        uses: actions/checkout@v3
+
+      - name: Установить Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Установить зависимости
+        run: pip install requests
+
+      - name: Запустить обновление файлов
+        run: python update_script.py  # Автоматическое обновление кода
